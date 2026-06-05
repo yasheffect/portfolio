@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yash Yadav | Graphic Designer</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        accent: '#ff4d00', // vibrant orange
+                        bgDark: '#fafafa',
+                    },
+                    fontFamily: {
+                        heading: ['"Space Grotesk"', 'sans-serif'],
+                        handwriting: ['"Caveat"', 'cursive'],
+                        body: ['"Archivo"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Archivo:wght@300;400;500;600&family=Space+Grotesk:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+
+<body class="bg-[#fafafa] text-black font-body overflow-x-hidden selection:bg-black selection:text-white cursor-none">
+
+    <!-- Software Preloader -->
+    <div id="software-preloader"
+        class="fixed inset-0 z-[100] bg-[#fafafa] flex items-center justify-center transition-all duration-700 ease-in-out">
+        <!-- Splash Screen Box -->
+        <div
+            class="relative w-[90%] max-w-[600px] bg-white border border-black/10 shadow-2xl overflow-hidden flex flex-col splash-box opacity-0 scale-95 origin-center">
+            <!-- Hero Artwork -->
+            <div class="relative w-full h-[320px] bg-black overflow-hidden">
+                <img src="splash-artwork.jpg" alt="Artwork"
+                    class="w-full h-full object-cover object-[50%_20%] opacity-60 transition-transform duration-[4000ms] ease-out scale-110"
+                    id="splash-img">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+
+                <!-- Branding overlay -->
+                <div class="absolute bottom-6 left-6 text-white flex flex-col">
+                    <span class="font-handwriting text-accent text-2xl mb-1 -rotate-2 origin-left">YY.</span>
+                    <h1 class="font-heading font-bold text-4xl tracking-tighter leading-none">YASH YADAV</h1>
+                    <p class="font-mono text-[10px] tracking-widest text-white/60 uppercase mt-2">Creative Suite 2026
+                    </p>
+                </div>
+            </div>
+
+            <!-- Loading Info Section -->
+            <div class="px-6 py-5 bg-white flex flex-col gap-4">
+                <div class="flex justify-between items-end">
+                    <div class="font-mono text-[10px] text-neutral-500 tracking-wider" id="loading-text">
+                        Initializing modules...
+                    </div>
+                    <div class="font-mono text-[11px] font-bold text-black tracking-widest" id="loading-percentage">
+                        0%
+                    </div>
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="w-full h-1.5 bg-neutral-200 overflow-hidden rounded-full">
+                    <div id="loading-bar"
+                        class="h-full bg-accent w-0 transition-all duration-75 ease-linear relative after:content-[''] after:absolute after:top-0 after:right-0 after:w-10 after:h-full after:bg-white/50 after:blur-[2px]">
+                    </div>
+                </div>
+
+                <!-- Footer text -->
+                <div class="mt-1 flex justify-between items-center text-[9px] font-mono text-neutral-400">
+                    <p>&copy; 2026 Yash Yadav. All rights reserved.</p>
+                    <p>Loading Workspace</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor hidden md:block">
+        <svg class="cursor-icon" width="28" height="28" viewBox="0 0 24 24" fill="white"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 0 L8.5 21 L12 13.5 L19.5 10 Z" stroke="black" stroke-width="1.5" stroke-linejoin="round" />
+        </svg>
+    </div>
+
+    <!-- SVG Filter for Blob Effect -->
+    <svg style="visibility: hidden; position: absolute;" width="0" height="0" xmlns="http://www.w3.org/2000/svg"
+        version="1.1">
+        <defs>
+            <filter id="blob">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
+                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
+                    result="blob" />
+                <feComposite in="SourceGraphic" in2="blob" operator="atop" />
+            </filter>
+        </defs>
+    </svg>
+
+    <!-- Navbar -->
+    <nav class="fixed top-4 md:top-8 z-50 w-full px-4 md:px-6 nav-container"
+        style="left: 50%; opacity: 0; transform: translateX(-50%) translateY(-20px);">
+        <div
+            class="relative flex items-center justify-between gap-2 md:gap-8 rounded-2xl px-3 md:px-5 py-2 md:py-3 overflow-hidden w-[90%] max-w-[400px] sm:w-auto md:max-w-[500px] mx-auto bg-white/80 backdrop-blur-xl border border-black/10 shadow-[0_4px_30px_rgba(0,0,0,0.05)]">
+            <a class="flex items-center hover:opacity-60 transition-opacity duration-300 shrink-0 interactive"
+                href="#hero">
+                <span class="font-heading font-bold text-xl md:text-2xl tracking-tighter">YY.</span>
+            </a>
+            <ul class="flex items-center gap-1 md:gap-2 list-none m-0 p-0" role="menubar">
+                <li class="group relative px-1.5 md:px-3 flex items-center justify-center" role="none">
+                    <a role="menuitem"
+                        class="interactive text-[10px] sm:text-xs md:text-sm font-semibold tracking-[0.06em] uppercase text-neutral-500 hover:text-black transition-colors duration-300 transform group-hover:-translate-y-1"
+                        href="works.html">Works</a>
+                    <span
+                        class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-black opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                        aria-hidden="true"></span>
+                </li>
+                <li class="group relative px-1.5 md:px-3 flex items-center justify-center" role="none">
+                    <a role="menuitem"
+                        class="interactive text-[10px] sm:text-xs md:text-sm font-semibold tracking-[0.06em] uppercase text-neutral-500 hover:text-black transition-colors duration-300 transform group-hover:-translate-y-1"
+                        href="#about">About</a>
+                    <span
+                        class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-black opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                        aria-hidden="true"></span>
+                </li>
+                <li class="group relative px-1.5 md:px-3 flex items-center justify-center" role="none">
+                    <a role="menuitem"
+                        class="interactive text-[10px] sm:text-xs md:text-sm font-semibold tracking-[0.06em] uppercase text-neutral-500 hover:text-black transition-colors duration-300 transform group-hover:-translate-y-1"
+                        href="#services">Services</a>
+                    <span
+                        class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-black opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                        aria-hidden="true"></span>
+                </li>
+                <li role="none" aria-hidden="true"><span
+                        class="w-px h-3 md:h-4 mx-0.5 md:mx-1 bg-black/10 block"></span></li>
+                <li role="none">
+                    <a title="Contact" aria-label="Contact" role="menuitem"
+                        class="interactive group relative p-1 md:p-1.5 flex flex-col items-center text-neutral-500 hover:text-black transition-colors duration-300"
+                        href="#contact">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"
+                            class="md:w-[14px] md:h-[14px]">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                            </path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="relative w-full h-[300vh] bg-[#fafafa]">
+        <!-- Sticky Container for Canvas and Text -->
+        <div class="sticky top-0 w-full h-screen overflow-hidden flex flex-col items-center justify-center">
+
+            <!-- Initial Scroll Prompt -->
+            <div id="scroll-prompt"
+                class="absolute inset-0 z-30 flex flex-col items-center justify-start pointer-events-none pt-32 md:pt-40">
+                <!-- Nice Copy in Transparent Glass -->
+                <div
+                    class="text-center max-w-4xl mx-6 badge-glow-edge bg-black/40 backdrop-blur-xl px-8 md:px-14 py-10 rounded-3xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+                    <h2
+                        class="font-heading font-bold text-4xl sm:text-5xl md:text-7xl text-white tracking-tighter mb-6">
+                        Elevating brands through strategic design and <span
+                            class="text-[#FF9A00] italic font-handwriting pr-2 md:pr-3 drop-shadow-[0_0_12px_rgba(255,154,0,0.8)]">motion</span>
+                        &amp; design.
+                    </h2>
+                    <p class="text-neutral-200 text-xl md:text-2xl font-medium">
+                        A curated showcase of multidisciplinary digital experiences.
+                    </p>
+                </div>
+
+                <!-- Scroll Down Indicator -->
+                <div class="absolute bottom-12 flex flex-col items-center gap-3">
+                    <span
+                        class="badge-glow inline-block text-[10px] uppercase tracking-[0.3em] font-bold text-white bg-black/40 px-4 py-1.5 rounded-full backdrop-blur-md border border-white/10 shadow-lg">Scroll
+                        to explore</span>
+                    <div
+                        class="badge-glow w-5 h-8 md:w-6 md:h-10 border-[2px] border-white/60 rounded-full flex justify-center p-1 bg-black/40 backdrop-blur-md shadow-lg">
+                        <div class="w-1.5 h-2.5 bg-white rounded-full animate-bounce mt-1"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text Content -->
+            <div
+                class="absolute inset-0 z-10 flex flex-col justify-end items-center pointer-events-none p-4 md:p-8 pb-8 md:pb-12 w-full">
+                <!-- Gradient Background -->
+                <div
+                    class="absolute inset-x-0 bottom-0 h-[60vh] bg-gradient-to-t from-black/95 via-black/60 to-transparent hero-element opacity-0 translate-y-4 -z-10">
+                </div>
+
+                <!-- Content wrapper -->
+                <div class="flex flex-col relative z-10 w-fit mx-auto">
+                    <!-- "Driven by observation" (Left aligned) -->
+                    <div
+                        class="self-start bg-accent text-white px-4 py-1.5 md:px-5 md:py-2.5 rounded-2xl mb-1 md:mb-2 transform -rotate-3 hero-element opacity-0 translate-y-8 shadow-[0_4px_15px_rgba(255,77,0,0.4)]">
+                        <p class="font-handwriting text-xl md:text-3xl m-0 leading-none">Driven by observation</p>
+                    </div>
+
+                    <!-- Name (Centered, Edge-to-Edge) -->
+                    <div class="hero-element opacity-0 translate-y-8">
+                        <h1
+                            class="font-heading font-bold text-[18vw] sm:text-[16vw] md:text-[14.5vw] lg:text-[13vw] leading-[0.85] text-white tracking-tight uppercase whitespace-nowrap drop-shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
+                            Yash Yadav
+                        </h1>
+                    </div>
+
+                    <!-- Subtext -->
+                    <div class="self-end hero-element opacity-0 translate-y-8 mt-3 md:mt-2">
+                        <p
+                            class="badge-glow font-inter text-[10px] sm:text-[11px] md:text-sm tracking-[0.2em] md:tracking-[0.3em] uppercase text-white font-bold bg-[#0a0a0a] px-4 py-2 md:px-5 md:py-3 rounded-full shadow-2xl inline-block">
+                            Graphic Designer &amp; Motion Artist</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Canvas for Scroll Animation -->
+            <img id="hero-img-seq" class="absolute inset-0 w-full h-full object-cover opacity-80 z-0"
+                src="./scoll-vid-v2/ezgif-frame-001.jpg" alt="Hero Sequence">
+
+            <!-- Software Interface UI Borders -->
+            <div class="absolute inset-4 border border-black/10 z-20 pointer-events-none rounded-lg hidden md:block">
+                <div class="absolute -top-1 -left-1 w-2 h-2 bg-black"></div>
+                <div class="absolute -top-1 -right-1 w-2 h-2 bg-black"></div>
+                <div class="absolute -bottom-1 -left-1 w-2 h-2 bg-black"></div>
+                <div class="absolute -bottom-1 -right-1 w-2 h-2 bg-black"></div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- About Section -->
+    <section id="about"
+        class="relative bg-white/90 backdrop-blur-sm py-16 md:py-32 px-6 md:px-12 border-t border-black/10 z-20 bg-noise bg-grid-blueprint">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 relative z-10">
+            <!-- Properties Panel (Design Software Vibe) -->
+            <div class="self-start about-panel opacity-0 -translate-x-10 magnetic-3d-wrap w-full md:w-auto">
+                <div
+                    class="border border-black/10 bg-white/95 backdrop-blur-md rounded-lg p-6 shadow-2xl magnetic-3d-item w-full">
+                    <div class="flex items-center justify-between mb-8 pb-4 border-b border-black/10"
+                        style="transform: translateZ(20px);">
+                        <h3 class="text-xs font-bold tracking-widest text-neutral-400">ABOUT</h3>
+                        <div class="flex gap-1">
+                            <div class="w-2 h-2 rounded-full bg-neutral-200"></div>
+                            <div class="w-2 h-2 rounded-full bg-neutral-200"></div>
+                            <div class="w-2 h-2 rounded-full bg-neutral-200"></div>
+                        </div>
+                    </div>
+
+                    <ul class="space-y-4 text-sm" style="transform: translateZ(10px);">
+                        <li class="flex justify-between items-center border-b border-black/5 pb-2">
+                            <span class="text-neutral-500">Location</span>
+                            <span class="font-medium text-black">Mumbai, IN</span>
+                        </li>
+                        <li class="flex justify-between items-center border-b border-black/5 pb-2">
+                            <span class="text-neutral-500">Experience</span>
+                            <span class="font-medium text-black">5+ Years</span>
+                        </li>
+                        <li class="flex justify-between items-center border-b border-black/5 pb-2">
+                            <span class="text-neutral-500">Identity</span>
+                            <span class="font-medium text-black">Proper Mumbaikar</span>
+                        </li>
+                        <li class="flex justify-between items-center border-b border-black/5 pb-2">
+                            <span class="text-neutral-500">Fuel</span>
+                            <span class="font-medium text-black">Chai &amp; Vadapav</span>
+                        </li>
+                        <li class="flex justify-between items-center">
+                            <span class="text-neutral-500">Hobbies</span>
+                            <span class="font-medium text-black">Bikes &amp; Travel</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="flex flex-col justify-center about-text opacity-0 translate-x-10">
+                <h2 class="font-heading font-bold text-4xl md:text-5xl mb-6">Bringing creative forces to life.</h2>
+                <p class="text-neutral-600 mb-6 text-lg leading-relaxed">
+                    I am a graphic designer with over 5 years of experience weaving visual narratives across FMCG, BFSI,
+                    F&B, and Fashion. I specialize in static design, motion graphics, video edits, and crafting
+                    comprehensive brand identities.
+                </p>
+                <p class="font-handwriting text-2xl text-black mt-4">
+                    A true Maharashtrian who finds inspiration in the everyday chaos, riding bikes, and traveling the
+                    world.
+                </p>
+            </div>
+        </div>
+
+        <!-- Skills Stack -->
+        <div class="max-w-6xl mx-auto mt-24 relative z-10">
+            <div
+                class="flex items-center justify-between border-b border-black/10 pb-4 mb-8 about-skills-header opacity-0 translate-y-4">
+                <span class="text-xs uppercase tracking-widest font-semibold text-neutral-500">Software Stack</span>
+            </div>
+            <div class="flex flex-wrap gap-x-2 gap-y-4 items-center skills-container">
+                <!-- Skill Pills with Magnetic Wrappers -->
+                <div class="magnetic-wrap p-4 -m-4 opacity-0 translate-y-8">
+                    <div
+                        class="interactive skill-pill badge-glow px-6 py-4 rounded-full bg-[#0a0a0a] text-white flex items-center gap-3 shadow-xl cursor-none">
+                        <div class="w-2.5 h-2.5 rounded-full bg-[#31A8FF]"></div>
+                        <span class="font-semibold text-sm tracking-widest uppercase">Photoshop</span>
+                    </div>
+                </div>
+                <div class="magnetic-wrap p-4 -m-4 opacity-0 translate-y-8">
+                    <div
+                        class="interactive skill-pill badge-glow px-6 py-4 rounded-full bg-[#0a0a0a] text-white flex items-center gap-3 shadow-xl cursor-none">
+                        <div class="w-2.5 h-2.5 rounded-full bg-[#FF9A00]"></div>
+                        <span class="font-semibold text-sm tracking-widest uppercase">Illustrator</span>
+                    </div>
+                </div>
+                <div class="magnetic-wrap p-4 -m-4 opacity-0 translate-y-8">
+                    <div
+                        class="interactive skill-pill badge-glow px-6 py-4 rounded-full bg-[#0a0a0a] text-white flex items-center gap-3 shadow-xl cursor-none">
+                        <div class="w-2.5 h-2.5 rounded-full bg-[#9999FF]"></div>
+                        <span class="font-semibold text-sm tracking-widest uppercase">Premiere Pro</span>
+                    </div>
+                </div>
+                <div class="magnetic-wrap p-4 -m-4 opacity-0 translate-y-8">
+                    <div
+                        class="interactive skill-pill badge-glow px-6 py-4 rounded-full bg-[#0a0a0a] text-white flex items-center gap-3 shadow-xl cursor-none">
+                        <div class="w-2.5 h-2.5 rounded-full bg-[#9999FF]"></div>
+                        <span class="font-semibold text-sm tracking-widest uppercase">After Effects</span>
+                    </div>
+                </div>
+                <div class="magnetic-wrap p-4 -m-4 opacity-0 translate-y-8">
+                    <div
+                        class="interactive skill-pill badge-glow px-6 py-4 rounded-full bg-[#0a0a0a] text-white flex items-center gap-3 shadow-xl cursor-none">
+                        <div class="w-2.5 h-2.5 rounded-full bg-[#0055FF]"></div>
+                        <span class="font-semibold text-sm tracking-widest uppercase">Framer</span>
+                    </div>
+                </div>
+                <div class="magnetic-wrap p-4 -m-4 opacity-0 translate-y-8">
+                    <div
+                        class="interactive skill-pill badge-glow px-6 py-4 rounded-full bg-[#0a0a0a] text-white flex items-center gap-3 shadow-xl cursor-none">
+                        <div class="w-2.5 h-2.5 rounded-full bg-[#F24E1E]"></div>
+                        <span class="font-semibold text-sm tracking-widest uppercase">Figma</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <!-- Logo Cloud Ticker -->
+        <div class="max-w-6xl mx-auto mt-24 relative z-10 about-skills-header opacity-0 translate-y-4">
+            <div class="flex flex-col items-center md:flex-row">
+                <!-- Text Block -->
+                <div
+                    class="flex-shrink-0 text-center md:text-right md:w-44 md:border-r md:border-black/10 md:pr-6 mb-8 md:mb-0">
+                    <p class="text-xs text-neutral-500 font-semibold uppercase tracking-widest">
+                        Powering the best teams
+                    </p>
+                </div>
+                <!-- Blurred Infinite Slider -->
+                <div class="w-full md:w-auto md:flex-1 relative overflow-hidden"
+                    style="mask-image: linear-gradient(to right, transparent, black 80px, black calc(100% - 80px), transparent); -webkit-mask-image: linear-gradient(to right, transparent, black 80px, black calc(100% - 80px), transparent);">
+                    <div class="flex">
+                        <div
+                            class="flex animate-marquee items-center justify-around min-w-full gap-16 px-8 cursor-none hover-target">
+                            <img src="https://logo.clearbit.com/openai.com" alt="OpenAI"
+                                class="h-10 md:h-12 w-fit grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all duration-300 filter drop-shadow-md">
+                            <img src="https://logo.clearbit.com/nvidia.com" alt="Nvidia"
+                                class="h-10 md:h-12 w-fit grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all duration-300 filter drop-shadow-md">
+                            <img src="https://logo.clearbit.com/github.com" alt="GitHub"
+                                class="h-10 md:h-12 w-fit grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all duration-300 filter drop-shadow-md">
+                            <img src="https://logo.clearbit.com/nike.com" alt="Nike"
+                                class="h-10 md:h-12 w-fit grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all duration-300 filter drop-shadow-md">
+                            <img src="https://logo.clearbit.com/spotify.com" alt="Spotify"
+                                class="h-10 md:h-12 w-fit grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all duration-300 filter drop-shadow-md">
+                            <img src="https://logo.clearbit.com/apple.com" alt="Apple"
+                                class="h-10 md:h-12 w-fit grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all duration-300 filter drop-shadow-md">
+                            <img src="https://logo.clearbit.com/adidas.com" alt="Adidas"
+                                class="h-10 md:h-12 w-fit grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all duration-300 filter drop-shadow-md">
+                            <img src="https://logo.clearbit.com/netflix.com" alt="Netflix"
+                                class="h-10 md:h-12 w-fit grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all duration-300 filter drop-shadow-md">
+                        </div>
+                        <div
+                            class="flex animate-marquee items-center justify-around min-w-full gap-16 px-8 aria-hidden cursor-none hover-target">
+                            <img src="https://logo.clearbit.com/openai.com" alt="OpenAI"
+                                class="h-10 md:h-12 w-fit grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all duration-300 filter drop-shadow-md">
+                            <img src="https://logo.clearbit.com/nvidia.com" alt="Nvidia"
+                                class="h-10 md:h-12 w-fit grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all duration-300 filter drop-shadow-md">
+                            <img src="https://logo.clearbit.com/github.com" alt="GitHub"
+                                class="h-10 md:h-12 w-fit grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all duration-300 filter drop-shadow-md">
+                            <img src="https://logo.clearbit.com/nike.com" alt="Nike"
+                                class="h-10 md:h-12 w-fit grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all duration-300 filter drop-shadow-md">
+                            <img src="https://logo.clearbit.com/spotify.com" alt="Spotify"
+                                class="h-10 md:h-12 w-fit grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all duration-300 filter drop-shadow-md">
+                            <img src="https://logo.clearbit.com/apple.com" alt="Apple"
+                                class="h-10 md:h-12 w-fit grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all duration-300 filter drop-shadow-md">
+                            <img src="https://logo.clearbit.com/adidas.com" alt="Adidas"
+                                class="h-10 md:h-12 w-fit grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all duration-300 filter drop-shadow-md">
+                            <img src="https://logo.clearbit.com/netflix.com" alt="Netflix"
+                                class="h-10 md:h-12 w-fit grayscale opacity-50 hover:opacity-100 hover:grayscale-0 transition-all duration-300 filter drop-shadow-md">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Image Preview (Global Overlay) -->
+    <div class="hidden md:block fixed z-[100] rounded-[5px] overflow-hidden pointer-events-none services-image-preview w-[360px] h-[270px] opacity-0 scale-95 bg-neutral-200 shadow-2xl"
+        style="top: 0; left: 0; transform-origin: top left;">
+        <!-- Dynamic Image loaded via JS -->
+        <img src="" alt="Service preview" class="w-full h-full object-cover" id="service-preview-img">
+    </div>
+
+    <!-- Services Section -->
+    <section id="services"
+        class="relative bg-[#fafafa]/90 backdrop-blur-sm px-6 md:px-10 py-16 md:py-36 overflow-hidden z-20 border-t border-black/10">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-12 md:mb-16 flex items-center justify-between services-header opacity-0">
+                <p class="text-[10px] text-neutral-500 uppercase tracking-[0.18em] font-semibold">Services</p>
+                <p class="text-[11px] text-neutral-400 tabular-nums">—</p>
+            </div>
+            <div class="border-t border-black/10"></div>
+
+            <ul class="flex flex-col w-full service-list">
+                <!-- Service 1 -->
+                <li class="w-full service-item relative group py-8 border-b border-black/10 hover:border-black/30 transition-colors interactive"
+                    data-img="assets/Bad%20Boy%20Pizza/cover.png" onclick="window.location.href='bad-boy-pizza.html'">
+                    <div
+                        class="relative flex items-center justify-center cursor-none select-none min-h-[clamp(64px,9vw,110px)] hover-target">
+                        <span
+                            class="service-title relative z-10 text-[clamp(2rem,5.5vw,6.5rem)] font-heading tracking-[-0.02em] leading-none transition-all duration-500 py-4 font-bold text-black group-hover:scale-105 group-hover:text-[#FF6B00]"><a
+                                href="bad-boy-pizza.html"
+                                class="work-item group hover-target bg-white rounded-[2rem] shadow-sm hover:shadow-2xl transition-all duration-700 overflow-hidden transform hover:-translate-y-2 opacity-0 translate-y-10 relative block border border-black/5 h-full col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-2">Brand
+                                Identity</a></span>
+                    </div>
+                </li>
+                <!-- Service 2 -->
+                <li class="w-full service-item relative group py-8 border-b border-black/10 hover:border-black/30 transition-colors interactive"
+                    data-img="assets/Brochure/Cover.jpg" onclick="window.location.href='real-estate-brochure.html'">
+                    <div
+                        class="relative flex items-center justify-center cursor-none select-none min-h-[clamp(64px,9vw,110px)] hover-target">
+                        <span
+                            class="service-title relative z-10 text-[clamp(2rem,5.5vw,6.5rem)] font-heading tracking-[-0.02em] leading-none transition-all duration-500 py-4 font-bold text-black group-hover:scale-105 group-hover:text-[#FF6B00]"><a
+                                href="real-estate-brochure.html"
+                                class="work-item group hover-target bg-white rounded-[2rem] shadow-sm hover:shadow-2xl transition-all duration-700 overflow-hidden transform hover:-translate-y-2 opacity-0 translate-y-10 relative block border border-black/5 h-full col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-1">Print
+                                Design</a></span>
+                    </div>
+                </li>
+                <!-- Service 3 -->
+                <li class="w-full service-item relative group py-8 border-b border-black/10 hover:border-black/30 transition-colors interactive"
+                    data-img="assets/other_static_cover.png" onclick="window.location.href='other-static.html'">
+                    <div
+                        class="relative flex items-center justify-center cursor-none select-none min-h-[clamp(64px,9vw,110px)] hover-target">
+                        <span
+                            class="service-title relative z-10 text-[clamp(2rem,5.5vw,6.5rem)] font-heading tracking-[-0.02em] leading-none transition-all duration-500 py-4 font-bold text-black group-hover:scale-105 group-hover:text-[#FF6B00]"><a
+                                href="other-static.html"
+                                class="work-item group hover-target bg-white rounded-[2rem] shadow-sm hover:shadow-2xl transition-all duration-700 overflow-hidden transform hover:-translate-y-2 opacity-0 translate-y-10 relative block border border-black/5 h-full col-span-1">Social
+                                Media Designs</a></span>
+                    </div>
+                </li>
+                <!-- Service 4 -->
+                <li class="w-full service-item relative group py-8 border-b border-black/10 hover:border-black/30 transition-colors interactive"
+                    data-img="assets/Web%20Design/eatanytime_cover.png"
+                    onclick="window.location.href='eatanytime-web.html'">
+                    <div
+                        class="relative flex items-center justify-center cursor-none select-none min-h-[clamp(64px,9vw,110px)] hover-target">
+                        <span
+                            class="service-title relative z-10 text-[clamp(2rem,5.5vw,6.5rem)] font-heading tracking-[-0.02em] leading-none transition-all duration-500 py-4 font-bold text-black group-hover:scale-105 group-hover:text-[#FF6B00]"><a
+                                href="eatanytime-web.html" class="block w-full h-full">Web Design & UI/UX</a></span>
+                    </div>
+                </li>
+                <!-- Service 5 -->
+                <li class="w-full service-item relative group py-8 border-b border-black/10 hover:border-black/30 transition-colors interactive"
+                    data-img="assets/hotstar_cover.png" onclick="window.location.href='hotstar-reel.html'">
+                    <div
+                        class="relative flex items-center justify-center cursor-none select-none min-h-[clamp(64px,9vw,110px)] hover-target">
+                        <span
+                            class="service-title relative z-10 text-[clamp(2rem,5.5vw,6.5rem)] font-heading tracking-[-0.02em] leading-none transition-all duration-500 py-4 font-bold text-black group-hover:scale-105 group-hover:text-[#FF6B00]"><a
+                                href="hotstar-reel.html"
+                                class="work-item group hover-target bg-white rounded-[2rem] shadow-sm hover:shadow-2xl transition-all duration-700 overflow-hidden transform hover:-translate-y-2 opacity-0 translate-y-10 relative block border border-black/5 h-full col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-1">Motion
+                                Graphics</a></span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Works Section (Placeholders) -->
+    <section id="works"
+        class="relative bg-white/90 backdrop-blur-sm py-16 md:py-32 px-6 md:px-12 z-20 bg-grid-blueprint">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col items-center mb-20 text-center works-header opacity-0">
+                <p class="font-handwriting text-2xl text-accent mb-2">Featured Projects</p>
+                <h2 class="font-heading font-bold text-4xl sm:text-5xl md:text-7xl">Selected Works</h2>
+            </div>
+
+            <div
+                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-[350px] sm:auto-rows-[350px] lg:auto-rows-[350px] gap-6 items-stretch grid-flow-dense">
+
+                <a href="bad-boy-pizza.html"
+                    class="work-item group hover-target bg-white rounded-[2rem] shadow-sm hover:shadow-2xl transition-all duration-700 overflow-hidden transform hover:-translate-y-2 opacity-0 translate-y-10 relative block border border-black/5 h-full col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-2">
+                    <div class="absolute inset-0 flex flex-col">
+                        <div class="relative w-full flex-1 overflow-hidden bg-neutral-100">
+                            <img src="assets/Bad%20Boy%20Pizza/cover.png" alt="Bad Boy Pizza"
+                                class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-[1.5s] ease-out group-hover:scale-105 filter grayscale group-hover:grayscale-0">
+                            <div
+                                class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500">
+                            </div>
+                            <div
+                                class="absolute top-5 right-5 badge-glow bg-[#0a0a0a] text-white text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-2 rounded-full opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform translate-y-0 md:translate-y-2 group-hover:translate-y-0 backdrop-blur-md">
+                                Brand Identity</div>
+                        </div>
+                        <div class="p-6 md:p-8 flex justify-between items-start bg-white z-10 shrink-0">
+                            <div>
+                                <h3
+                                    class="font-heading font-bold text-2xl md:text-3xl tracking-tight mb-2 relative inline-block text-black group-hover:text-[#FF4D00] transition-colors duration-300">
+                                    Bad Boy Pizza</h3>
+                                <p class="text-neutral-400 text-xs md:text-sm uppercase tracking-widest font-semibold">
+                                    Identity & Motion Graphics</p>
+                            </div>
+                            <span
+                                class="w-12 h-12 rounded-full border border-black/10 flex items-center justify-center group-hover:bg-[#FF4D00] group-hover:border-[#FF4D00] group-hover:text-white transition-all duration-500 text-black shrink-0">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    class="transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="ghostkitchens-web.html"
+                    class="work-item group hover-target bg-white rounded-[2rem] shadow-sm hover:shadow-2xl transition-all duration-700 overflow-hidden transform hover:-translate-y-2 opacity-0 translate-y-10 relative block border border-black/5 h-full col-span-1">
+                    <div class="absolute inset-0 flex flex-col">
+                        <div class="relative w-full flex-1 overflow-hidden bg-neutral-100">
+                            <img src="assets/Web Design/ghostkitchens.png" alt="Ghost Kitchens"
+                                class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-[1.5s] ease-out group-hover:scale-105 filter grayscale group-hover:grayscale-0">
+                            <div
+                                class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500">
+                            </div>
+                            <div
+                                class="absolute top-5 right-5 badge-glow bg-[#0a0a0a] text-white text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-2 rounded-full opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform translate-y-0 md:translate-y-2 group-hover:translate-y-0 backdrop-blur-md">
+                                Web Design</div>
+                        </div>
+                        <div class="p-6 md:p-8 flex justify-between items-start bg-white z-10 shrink-0">
+                            <div>
+                                <h3
+                                    class="font-heading font-bold text-2xl md:text-3xl tracking-tight mb-2 relative inline-block text-black group-hover:text-[#FF4D00] transition-colors duration-300">
+                                    Ghost Kitchens</h3>
+                                <p class="text-neutral-400 text-xs md:text-sm uppercase tracking-widest font-semibold">
+                                    Web Design / UI UX</p>
+                            </div>
+                            <span
+                                class="w-12 h-12 rounded-full border border-black/10 flex items-center justify-center group-hover:bg-[#FF4D00] group-hover:border-[#FF4D00] group-hover:text-white transition-all duration-500 text-black shrink-0">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    class="transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="chtrbox-web.html"
+                    class="work-item group hover-target bg-white rounded-[2rem] shadow-sm hover:shadow-2xl transition-all duration-700 overflow-hidden transform hover:-translate-y-2 opacity-0 translate-y-10 relative block border border-black/5 h-full col-span-1">
+                    <div class="absolute inset-0 flex flex-col">
+                        <div class="relative w-full flex-1 overflow-hidden bg-neutral-100">
+                            <img src="assets/Web Design/chtrbox.png" alt="Chtrbox Agency"
+                                class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-[1.5s] ease-out group-hover:scale-105 filter grayscale group-hover:grayscale-0">
+                            <div
+                                class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500">
+                            </div>
+                            <div
+                                class="absolute top-5 right-5 badge-glow bg-[#0a0a0a] text-white text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-2 rounded-full opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform translate-y-0 md:translate-y-2 group-hover:translate-y-0 backdrop-blur-md">
+                                Web Design</div>
+                        </div>
+                        <div class="p-6 md:p-8 flex justify-between items-start bg-white z-10 shrink-0">
+                            <div>
+                                <h3
+                                    class="font-heading font-bold text-2xl md:text-3xl tracking-tight mb-2 relative inline-block text-black group-hover:text-[#FF4D00] transition-colors duration-300">
+                                    Chtrbox Agency</h3>
+                                <p class="text-neutral-400 text-xs md:text-sm uppercase tracking-widest font-semibold">
+                                    Web Design / UI UX</p>
+                            </div>
+                            <span
+                                class="w-12 h-12 rounded-full border border-black/10 flex items-center justify-center group-hover:bg-[#FF4D00] group-hover:border-[#FF4D00] group-hover:text-white transition-all duration-500 text-black shrink-0">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    class="transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="hotstar-reel.html"
+                    class="work-item group hover-target bg-white rounded-[2rem] shadow-sm hover:shadow-2xl transition-all duration-700 overflow-hidden transform hover:-translate-y-2 opacity-0 translate-y-10 relative block border border-black/5 h-full col-span-1 md:col-span-2 lg:col-span-1 lg:row-span-1">
+                    <div class="absolute inset-0 flex flex-col">
+                        <div class="relative w-full flex-1 overflow-hidden bg-neutral-100">
+                            <img src="assets/hotstar_cover.png" alt="Hotstar Reel"
+                                class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-[1.5s] ease-out group-hover:scale-105 filter grayscale group-hover:grayscale-0">
+                            <div
+                                class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500">
+                            </div>
+                            <div
+                                class="absolute top-5 right-5 badge-glow bg-[#0a0a0a] text-white text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-2 rounded-full opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform translate-y-0 md:translate-y-2 group-hover:translate-y-0 backdrop-blur-md">
+                                Motion Graphics</div>
+                        </div>
+                        <div class="p-6 md:p-8 flex justify-between items-start bg-white z-10 shrink-0">
+                            <div>
+                                <h3
+                                    class="font-heading font-bold text-2xl md:text-3xl tracking-tight mb-2 relative inline-block text-black group-hover:text-[#FF4D00] transition-colors duration-300">
+                                    Hotstar Reel</h3>
+                                <p class="text-neutral-400 text-xs md:text-sm uppercase tracking-widest font-semibold">
+                                    Motion Graphic Showreel</p>
+                            </div>
+                            <span
+                                class="w-12 h-12 rounded-full border border-black/10 flex items-center justify-center group-hover:bg-[#FF4D00] group-hover:border-[#FF4D00] group-hover:text-white transition-all duration-500 text-black shrink-0">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    class="transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="bajaj-finserv.html"
+                    class="work-item group hover-target bg-white rounded-[2rem] shadow-sm hover:shadow-2xl transition-all duration-700 overflow-hidden transform hover:-translate-y-2 opacity-0 translate-y-10 relative block border border-black/5 h-full col-span-1 lg:col-span-1 lg:row-span-2">
+                    <div class="absolute inset-0 flex flex-col">
+                        <div class="relative w-full flex-1 overflow-hidden bg-neutral-100">
+                            <img src="assets/Bajaj%20Finserv/7.png" alt="Bajaj Finserv"
+                                class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-[1.5s] ease-out group-hover:scale-105 filter grayscale group-hover:grayscale-0">
+                            <div
+                                class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500">
+                            </div>
+                            <div
+                                class="absolute top-5 right-5 badge-glow bg-[#0a0a0a] text-white text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-2 rounded-full opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform translate-y-0 md:translate-y-2 group-hover:translate-y-0 backdrop-blur-md">
+                                Social Media</div>
+                        </div>
+                        <div class="p-6 md:p-8 flex justify-between items-start bg-white z-10 shrink-0">
+                            <div>
+                                <h3
+                                    class="font-heading font-bold text-2xl md:text-3xl tracking-tight mb-2 relative inline-block text-black group-hover:text-[#FF4D00] transition-colors duration-300">
+                                    Bajaj Finserv</h3>
+                                <p class="text-neutral-400 text-xs md:text-sm uppercase tracking-widest font-semibold">
+                                    Mutual Funds Statics</p>
+                            </div>
+                            <span
+                                class="w-12 h-12 rounded-full border border-black/10 flex items-center justify-center group-hover:bg-[#FF4D00] group-hover:border-[#FF4D00] group-hover:text-white transition-all duration-500 text-black shrink-0">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    class="transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="other-static.html"
+                    class="work-item group hover-target bg-white rounded-[2rem] shadow-sm hover:shadow-2xl transition-all duration-700 overflow-hidden transform hover:-translate-y-2 opacity-0 translate-y-10 relative block border border-black/5 h-full col-span-1">
+                    <div class="absolute inset-0 flex flex-col">
+                        <div class="relative w-full flex-1 overflow-hidden bg-neutral-100">
+                            <img src="assets/other_static_cover.png" alt="Social Media Statics"
+                                class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-[1.5s] ease-out group-hover:scale-105 filter grayscale group-hover:grayscale-0">
+                            <div
+                                class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500">
+                            </div>
+                            <div
+                                class="absolute top-5 right-5 badge-glow bg-[#0a0a0a] text-white text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-2 rounded-full opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform translate-y-0 md:translate-y-2 group-hover:translate-y-0 backdrop-blur-md">
+                                Social Media</div>
+                        </div>
+                        <div class="p-6 md:p-8 flex justify-between items-start bg-white z-10 shrink-0">
+                            <div>
+                                <h3
+                                    class="font-heading font-bold text-2xl md:text-3xl tracking-tight mb-2 relative inline-block text-black group-hover:text-[#FF4D00] transition-colors duration-300">
+                                    Social Media Statics</h3>
+                                <p class="text-neutral-400 text-xs md:text-sm uppercase tracking-widest font-semibold">
+                                    Static Designs</p>
+                            </div>
+                            <span
+                                class="w-12 h-12 rounded-full border border-black/10 flex items-center justify-center group-hover:bg-[#FF4D00] group-hover:border-[#FF4D00] group-hover:text-white transition-all duration-500 text-black shrink-0">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    class="transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="fintech-reels.html"
+                    class="work-item group hover-target bg-white rounded-[2rem] shadow-sm hover:shadow-2xl transition-all duration-700 overflow-hidden transform hover:-translate-y-2 opacity-0 translate-y-10 relative block border border-black/5 h-full col-span-1 md:col-span-2 lg:col-span-1 lg:row-span-1">
+                    <div class="absolute inset-0 flex flex-col">
+                        <div class="relative w-full flex-1 overflow-hidden bg-neutral-100">
+                            <img src="assets/fintech_cover.png" alt="Fintech Reels"
+                                class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-[1.5s] ease-out group-hover:scale-105 filter grayscale group-hover:grayscale-0">
+                            <div
+                                class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500">
+                            </div>
+                            <div
+                                class="absolute top-5 right-5 badge-glow bg-[#0a0a0a] text-white text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-2 rounded-full opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform translate-y-0 md:translate-y-2 group-hover:translate-y-0 backdrop-blur-md">
+                                Motion Graphics</div>
+                        </div>
+                        <div class="p-6 md:p-8 flex justify-between items-start bg-white z-10 shrink-0">
+                            <div>
+                                <h3
+                                    class="font-heading font-bold text-2xl md:text-3xl tracking-tight mb-2 relative inline-block text-black group-hover:text-[#FF4D00] transition-colors duration-300">
+                                    Fintech Reels</h3>
+                                <p class="text-neutral-400 text-xs md:text-sm uppercase tracking-widest font-semibold">
+                                    Reels</p>
+                            </div>
+                            <span
+                                class="w-12 h-12 rounded-full border border-black/10 flex items-center justify-center group-hover:bg-[#FF4D00] group-hover:border-[#FF4D00] group-hover:text-white transition-all duration-500 text-black shrink-0">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    class="transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="other-reels.html"
+                    class="work-item group hover-target bg-white rounded-[2rem] shadow-sm hover:shadow-2xl transition-all duration-700 overflow-hidden transform hover:-translate-y-2 opacity-0 translate-y-10 relative block border border-black/5 h-full col-span-1">
+                    <div class="absolute inset-0 flex flex-col">
+                        <div class="relative w-full flex-1 overflow-hidden bg-neutral-100">
+                            <img src="assets/other_reels_cover.png" alt="Other Reels"
+                                class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-[1.5s] ease-out group-hover:scale-105 filter grayscale group-hover:grayscale-0">
+                            <div
+                                class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500">
+                            </div>
+                            <div
+                                class="absolute top-5 right-5 badge-glow bg-[#0a0a0a] text-white text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-2 rounded-full opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform translate-y-0 md:translate-y-2 group-hover:translate-y-0 backdrop-blur-md">
+                                Motion Graphics</div>
+                        </div>
+                        <div class="p-6 md:p-8 flex justify-between items-start bg-white z-10 shrink-0">
+                            <div>
+                                <h3
+                                    class="font-heading font-bold text-2xl md:text-3xl tracking-tight mb-2 relative inline-block text-black group-hover:text-[#FF4D00] transition-colors duration-300">
+                                    Other Reels</h3>
+                                <p class="text-neutral-400 text-xs md:text-sm uppercase tracking-widest font-semibold">
+                                    Various Reels</p>
+                            </div>
+                            <span
+                                class="w-12 h-12 rounded-full border border-black/10 flex items-center justify-center group-hover:bg-[#FF4D00] group-hover:border-[#FF4D00] group-hover:text-white transition-all duration-500 text-black shrink-0">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    class="transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="e-mailer.html"
+                    class="work-item group hover-target bg-white rounded-[2rem] shadow-sm hover:shadow-2xl transition-all duration-700 overflow-hidden transform hover:-translate-y-2 opacity-0 translate-y-10 relative block border border-black/5 h-full col-span-1 md:col-span-2 lg:col-span-2 lg:row-span-1">
+                    <div class="absolute inset-0 flex flex-col">
+                        <div class="relative w-full flex-1 overflow-hidden bg-neutral-100">
+                            <img src="assets/E-Mailer%20design/Cover.jpg" alt="E-Mailer Design"
+                                class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-[1.5s] ease-out group-hover:scale-105 filter grayscale group-hover:grayscale-0">
+                            <div
+                                class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500">
+                            </div>
+                            <div
+                                class="absolute top-5 right-5 badge-glow bg-[#0a0a0a] text-white text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-2 rounded-full opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform translate-y-0 md:translate-y-2 group-hover:translate-y-0 backdrop-blur-md">
+                                E-Mailer Design</div>
+                        </div>
+                        <div class="p-6 md:p-8 flex justify-between items-start bg-white z-10 shrink-0">
+                            <div>
+                                <h3
+                                    class="font-heading font-bold text-2xl md:text-3xl tracking-tight mb-2 relative inline-block text-black group-hover:text-[#FF4D00] transition-colors duration-300">
+                                    E-Mailer Design</h3>
+                                <p class="text-neutral-400 text-xs md:text-sm uppercase tracking-widest font-semibold">
+                                    Digital Campaigns</p>
+                            </div>
+                            <span
+                                class="w-12 h-12 rounded-full border border-black/10 flex items-center justify-center group-hover:bg-[#FF4D00] group-hover:border-[#FF4D00] group-hover:text-white transition-all duration-500 text-black shrink-0">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    class="transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="real-estate-brochure.html"
+                    class="work-item group hover-target bg-white rounded-[2rem] shadow-sm hover:shadow-2xl transition-all duration-700 overflow-hidden transform hover:-translate-y-2 opacity-0 translate-y-10 relative block border border-black/5 h-full col-span-1">
+                    <div class="absolute inset-0 flex flex-col">
+                        <div class="relative w-full flex-1 overflow-hidden bg-neutral-100">
+                            <img src="assets/Brochure/Cover.jpg" alt="Salsette 27"
+                                class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-[1.5s] ease-out group-hover:scale-105 filter grayscale group-hover:grayscale-0">
+                            <div
+                                class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500">
+                            </div>
+                            <div
+                                class="absolute top-5 right-5 badge-glow bg-[#0a0a0a] text-white text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-2 rounded-full opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform translate-y-0 md:translate-y-2 group-hover:translate-y-0 backdrop-blur-md">
+                                Print Design</div>
+                        </div>
+                        <div class="p-6 md:p-8 flex justify-between items-start bg-white z-10 shrink-0">
+                            <div>
+                                <h3
+                                    class="font-heading font-bold text-2xl md:text-3xl tracking-tight mb-2 relative inline-block text-black group-hover:text-[#FF4D00] transition-colors duration-300">
+                                    Salsette 27</h3>
+                                <p class="text-neutral-400 text-xs md:text-sm uppercase tracking-widest font-semibold">
+                                    Brochure Design</p>
+                            </div>
+                            <span
+                                class="w-12 h-12 rounded-full border border-black/10 flex items-center justify-center group-hover:bg-[#FF4D00] group-hover:border-[#FF4D00] group-hover:text-white transition-all duration-500 text-black shrink-0">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                    class="transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300">
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+
+            <!-- View All Projects Button -->
+            <div class="mt-20 flex justify-center w-full">
+                <a href="works.html"
+                    class="interactive group relative inline-flex items-center justify-center px-10 py-5 bg-[#0a0a0a] text-white rounded-full overflow-hidden transition-transform hover:scale-105 duration-500 shadow-xl hover:shadow-[#FF4D00]/20">
+                    <span
+                        class="absolute inset-0 w-full h-full bg-[#FF4D00] origin-left transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out"></span>
+                    <span
+                        class="relative z-10 font-heading font-bold text-sm md:text-base tracking-[0.2em] uppercase flex items-center gap-3">
+                        View All Projects
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            class="transform group-hover:translate-x-2 transition-transform duration-300">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                    </span>
+                </a>
+            </div>
+
+
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials"
+        class="relative bg-white py-24 md:py-32 px-6 md:px-12 border-t border-black/10 z-20 overflow-hidden">
+        <!-- Tailwind Safelist for JS injected classes -->
+        <div
+            class="hidden top-1/2 p-8 border-2 bg-[#ff4d00] border-[#ff4d00] bg-black text-white border-black z-10 z-0 bg-white text-black border-black/10 hover:border-[#ff4d00]/50 text-white/80 text-black/60 origin-top-right rotate-45 h-14 w-14 rounded-full object-cover object-top sm:text-xl font-medium mt-6 mt-2 text-sm italic">
+        </div>
+
+        <div class="max-w-5xl mx-auto relative z-10 flex flex-col items-center text-center mb-16">
+            <p class="font-handwriting text-3xl text-accent mb-4">Client Love</p>
+            <h2 class="font-heading font-bold text-4xl sm:text-5xl md:text-7xl uppercase">Testimonials</h2>
+        </div>
+
+        <div id="stagger-testimonials-container" class="relative w-full overflow-hidden" style="height: 600px;">
+            <div id="testimonials-track" class="absolute inset-0"></div>
+            <div class="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2 z-30">
+                <button id="testi-prev"
+                    class="interactive flex h-14 w-14 items-center justify-center text-2xl transition-colors bg-white border-2 border-black/10 hover:bg-black hover:text-white rounded-full focus:outline-none focus:ring-2 focus:ring-black">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m15 18-6-6 6-6" />
+                    </svg>
+                </button>
+                <button id="testi-next"
+                    class="interactive flex h-14 w-14 items-center justify-center text-2xl transition-colors bg-white border-2 border-black/10 hover:bg-black hover:text-white rounded-full focus:outline-none focus:ring-2 focus:ring-black">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m9 18 6-6-6-6" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact"
+        class="relative bg-[#fafafa]/90 backdrop-blur-sm py-16 md:py-32 px-6 md:px-12 border-t border-black/10 z-20">
+
+        <div class="max-w-5xl mx-auto relative z-10 flex flex-col items-center text-center">
+            <p class="font-handwriting text-3xl text-accent mb-6 contact-element opacity-0 -translate-y-4">Have a
+                project in mind?
+            </p>
+            <h2
+                class="font-heading font-bold text-6xl md:text-8xl tracking-tighter mb-12 contact-element opacity-0 uppercase">
+                Let's create.</h2>
+
+
+            <a href="mailto:yasheffect@gmail.com"
+                class="interactive group relative inline-flex items-center justify-center px-12 py-5 mb-16 bg-[#0a0a0a] text-white rounded-full overflow-hidden transition-transform hover:scale-105 duration-500 shadow-xl hover:shadow-[#FF4D00]/20 contact-element opacity-0 translate-y-4">
+                <span
+                    class="absolute inset-0 w-full h-full bg-[#FF4D00] origin-left transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out"></span>
+                <span
+                    class="relative z-10 font-heading font-bold text-sm md:text-base tracking-[0.2em] uppercase flex items-center gap-3">
+                    Email Me
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round"
+                        class="transform group-hover:translate-x-2 transition-transform duration-300">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                        <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                </span>
+            </a>
+
+            <div
+                class="w-full flex flex-col md:flex-row justify-between items-center pt-8 border-t border-black/10 text-sm text-neutral-500 font-medium contact-element opacity-0">
+                <p>&copy; 2026 Yash Yadav. All rights reserved.</p>
+
+                <div class="flex gap-6 mt-4 md:mt-0">
+                    <a href="https://www.instagram.com/lensatiionn" target="_blank" rel="noopener noreferrer"
+                        class="interactive hover:text-black transition-colors">Instagram</a>
+                    <a href="https://www.behance.net/yash_yadav" target="_blank" rel="noopener noreferrer"
+                        class="interactive hover:text-black transition-colors">Behance</a>
+                    <a href="https://www.linkedin.com/in/yash-yadav-2b24b5228?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app"
+                        target="_blank" rel="noopener noreferrer"
+                        class="interactive hover:text-black transition-colors">LinkedIn</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Custom Scripts -->
+    <script src="script.js?v=5"></script>
+</body>
+
+</html>

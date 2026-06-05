@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yash Yadav | Work Detail</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        accent: '#ff4d00', // vibrant orange
+                        bgDark: '#fafafa',
+                    },
+                    fontFamily: {
+                        heading: ['"Space Grotesk"', 'sans-serif'],
+                        handwriting: ['"Caveat"', 'cursive'],
+                        body: ['"Inter"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Inter:wght@300;400;500&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+</head>
+<body class="bg-[#fafafa] text-black font-body overflow-x-hidden selection:bg-black selection:text-white cursor-none bg-noise bg-grid-blueprint">
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor hidden md:block">
+        <svg class="cursor-icon" width="28" height="28" viewBox="0 0 24 24" fill="black" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 0 L8.5 21 L12 13.5 L19.5 10 Z" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
+        </svg>
+    </div>
+
+    <!-- Navbar -->
+    <nav class="fixed top-4 md:top-8 z-50 w-full px-4 md:px-6 nav-container" style="left: 50%; transform: translateX(-50%);">
+        <div class="relative flex items-center justify-between gap-2 md:gap-8 rounded-2xl px-3 md:px-5 py-2 md:py-3 overflow-hidden w-[90%] max-w-[400px] sm:w-auto md:max-w-[500px] mx-auto bg-white/80 backdrop-blur-xl border border-black/10 shadow-[0_4px_30px_rgba(0,0,0,0.05)]">
+            <a class="flex items-center hover:opacity-60 transition-opacity duration-300 shrink-0 interactive" href="index.html">
+                <span class="font-heading font-bold text-xl md:text-2xl tracking-tighter">YY.</span>
+            </a>
+            <ul class="flex items-center gap-1 md:gap-2 list-none m-0 p-0" role="menubar">
+                <li class="group relative px-1.5 md:px-3 flex items-center justify-center" role="none">
+                    <a role="menuitem" class="interactive text-[10px] sm:text-xs md:text-sm font-semibold tracking-[0.06em] uppercase text-neutral-500 hover:text-black transition-colors duration-300 transform group-hover:-translate-y-1" href="works.html">Works</a>
+                    <span class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-black opacity-0 group-hover:opacity-100 transition-opacity duration-200" aria-hidden="true"></span>
+                </li>
+                <li class="group relative px-1.5 md:px-3 flex items-center justify-center" role="none">
+                    <a role="menuitem" class="interactive text-[10px] sm:text-xs md:text-sm font-semibold tracking-[0.06em] uppercase text-neutral-500 hover:text-black transition-colors duration-300 transform group-hover:-translate-y-1" href="index.html#about">About</a>
+                    <span class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-black opacity-0 group-hover:opacity-100 transition-opacity duration-200" aria-hidden="true"></span>
+                </li>
+                <li class="group relative px-1.5 md:px-3 flex items-center justify-center" role="none">
+                    <a role="menuitem" class="interactive text-[10px] sm:text-xs md:text-sm font-semibold tracking-[0.06em] uppercase text-neutral-500 hover:text-black transition-colors duration-300 transform group-hover:-translate-y-1" href="index.html#services">Services</a>
+                    <span class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-black opacity-0 group-hover:opacity-100 transition-opacity duration-200" aria-hidden="true"></span>
+                </li>
+                <li role="none" aria-hidden="true"><span class="w-px h-3 md:h-4 mx-0.5 md:mx-1 bg-black/10 block"></span></li>
+                <li role="none">
+                    <a title="Contact" aria-label="Contact" role="menuitem" class="interactive group relative p-1 md:p-1.5 flex flex-col items-center text-neutral-500 hover:text-black transition-colors duration-300" href="index.html#contact">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="md:w-[14px] md:h-[14px]">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Project Hero Header -->
+    <header class="pt-32 pb-12 md:pt-48 md:pb-16 px-6 md:px-12 bg-white bg-noise relative z-20">
+        <div class="max-w-6xl mx-auto">
+            <a href="works.html" class="interactive inline-flex items-center gap-2 text-sm font-semibold text-neutral-500 hover:text-black transition-colors mb-8">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                Back to Archive
+            </a>
+            
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-10">
+                <div class="flex-1">
+                    <span class="badge-glow bg-[#0a0a0a] text-white text-[10px] font-bold uppercase tracking-[0.2em] px-4 py-2 rounded-full mb-6 inline-block">Social Media</span>
+                    <h1 class="font-heading font-bold text-4xl sm:text-5xl md:text-7xl lg:text-[6rem] leading-[0.9] tracking-tighter mt-4 page-title">
+                        Bajaj <span class="text-accent italic font-handwriting pr-2">Finserv</span>
+                    </h1>
+                </div>
+                
+                <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-x-12 gap-y-6 lg:w-[400px]">
+                    <div>
+                        <h4 class="text-[10px] uppercase tracking-widest text-neutral-400 font-semibold mb-1">Client</h4>
+                        <p class="font-medium text-black">Bajaj Finserv</p>
+                    </div>
+                    <div>
+                        <h4 class="text-[10px] uppercase tracking-widest text-neutral-400 font-semibold mb-1">Year</h4>
+                        <p class="font-medium text-black">2024</p>
+                    </div>
+                    <div>
+                        <h4 class="text-[10px] uppercase tracking-widest text-neutral-400 font-semibold mb-1">Role</h4>
+                        <p class="font-medium text-black">Social Media Design</p>
+                    </div>
+                    <div>
+                        <h4 class="text-[10px] uppercase tracking-widest text-neutral-400 font-semibold mb-1">Deliverables</h4>
+                        <p class="font-medium text-black">Mutual Funds Statics</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="w-full px-4 md:px-8 mb-20 py-10 md:py-20 bg-neutral-100 rounded-[2rem] max-w-[1400px] mx-auto flex justify-center items-center relative overflow-hidden border border-black/5 shadow-inner">
+        <!-- Decorative background elements -->
+        <div class="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-neutral-100 to-neutral-200 z-0"></div>
+        <div class="absolute w-96 h-96 bg-accent/5 rounded-full blur-3xl -top-10 -right-10 z-0"></div>
+        
+        <div class="w-full flex flex-col lg:flex-row items-center justify-center gap-6 xl:gap-10 relative z-10 px-4">
+            
+            <!-- Left Mockup -->
+            <div class="w-full max-w-[360px] bg-white rounded-3xl shadow-xl border border-neutral-200 overflow-hidden relative hidden lg:block transform lg:translate-y-12 lg:-rotate-2 opacity-80 hover:opacity-100 hover:-translate-y-4 hover:rotate-0 hover:z-30 hover:shadow-2xl transition-all duration-500 z-10">
+                <div class="flex items-center justify-between p-3 px-4 border-b border-neutral-100">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 p-[2px]">
+                            <div class="w-full h-full rounded-full bg-white border border-white flex items-center justify-center overflow-hidden"><div class="w-full h-full bg-neutral-200"></div></div>
+                        </div>
+                        <span class="font-semibold text-sm text-black">bajajfinserv_mf</span>
+                    </div>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                </div>
+                <div class="w-full bg-neutral-100 relative group">
+                    <img src="assets/Bajaj%20Finserv/8.png" alt="Bajaj Finserv Post Left" class="w-full h-auto object-cover">
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                        <svg width="80" height="80" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="0" class="drop-shadow-lg scale-50 group-hover:scale-100 transition-transform duration-500 opacity-80"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    </div>
+                </div>
+                <div class="p-4 flex justify-between items-center bg-white">
+                    <div class="flex gap-4">
+                        <svg class="interactive hover:fill-red-500 hover:stroke-red-500 transition-colors cursor-pointer" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                        <svg class="interactive hover:stroke-neutral-500 transition-colors cursor-pointer" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                        <svg class="interactive hover:stroke-neutral-500 transition-colors cursor-pointer" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                    </div>
+                    <svg class="interactive hover:stroke-neutral-500 transition-colors cursor-pointer" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+                </div>
+            </div>
+
+            <!-- Center Mockup -->
+            <div class="w-full max-w-[420px] bg-white rounded-3xl shadow-2xl border border-neutral-200 overflow-hidden relative z-20 interactive hover:-translate-y-4 hover:scale-[1.02] transition-all duration-500">
+                <div class="flex items-center justify-between p-3 px-4 border-b border-neutral-100">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 p-[2px]">
+                            <div class="w-full h-full rounded-full bg-white border border-white flex items-center justify-center overflow-hidden"><div class="w-full h-full bg-neutral-200"></div></div>
+                        </div>
+                        <span class="font-semibold text-sm text-black">bajajfinserv_mf</span>
+                    </div>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                </div>
+                <div class="w-full bg-neutral-100 relative group">
+                    <img src="assets/Bajaj%20Finserv/7.png" alt="Bajaj Finserv Post Center" class="w-full h-auto object-cover">
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                        <svg width="80" height="80" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="0" class="drop-shadow-lg scale-50 group-hover:scale-100 transition-transform duration-500 opacity-80"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    </div>
+                </div>
+                <div class="p-4 flex justify-between items-center bg-white">
+                    <div class="flex gap-4">
+                        <svg class="interactive hover:fill-red-500 hover:stroke-red-500 transition-colors cursor-pointer" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                        <svg class="interactive hover:stroke-neutral-500 transition-colors cursor-pointer" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                        <svg class="interactive hover:stroke-neutral-500 transition-colors cursor-pointer" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                    </div>
+                    <svg class="interactive hover:stroke-neutral-500 transition-colors cursor-pointer" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+                </div>
+            </div>
+
+            <!-- Right Mockup -->
+            <div class="w-full max-w-[360px] bg-white rounded-3xl shadow-xl border border-neutral-200 overflow-hidden relative hidden lg:block transform lg:translate-y-12 lg:rotate-2 opacity-80 hover:opacity-100 hover:-translate-y-4 hover:rotate-0 hover:z-30 hover:shadow-2xl transition-all duration-500 z-10">
+                <div class="flex items-center justify-between p-3 px-4 border-b border-neutral-100">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 p-[2px]">
+                            <div class="w-full h-full rounded-full bg-white border border-white flex items-center justify-center overflow-hidden"><div class="w-full h-full bg-neutral-200"></div></div>
+                        </div>
+                        <span class="font-semibold text-sm text-black">bajajfinserv_mf</span>
+                    </div>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg>
+                </div>
+                <div class="w-full bg-neutral-100 relative group">
+                    <img src="assets/Bajaj%20Finserv/10.png" alt="Bajaj Finserv Post Right" class="w-full h-auto object-cover">
+                    <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none">
+                        <svg width="80" height="80" viewBox="0 0 24 24" fill="white" stroke="white" stroke-width="0" class="drop-shadow-lg scale-50 group-hover:scale-100 transition-transform duration-500 opacity-80"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    </div>
+                </div>
+                <div class="p-4 flex justify-between items-center bg-white">
+                    <div class="flex gap-4">
+                        <svg class="interactive hover:fill-red-500 hover:stroke-red-500 transition-colors cursor-pointer" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                        <svg class="interactive hover:stroke-neutral-500 transition-colors cursor-pointer" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                        <svg class="interactive hover:stroke-neutral-500 transition-colors cursor-pointer" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                    </div>
+                    <svg class="interactive hover:stroke-neutral-500 transition-colors cursor-pointer" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Content Blocks (The Challenge / Solution) -->
+    <section class="max-w-4xl mx-auto px-6 md:px-12 py-12 md:py-20 grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16">
+        <div>
+            <h3 class="font-heading font-bold text-2xl sm:text-3xl mb-6 flex items-center gap-4">
+                <span class="w-10 h-[2px] bg-black"></span> The Challenge
+            </h3>
+            <p class="text-neutral-600 text-lg leading-relaxed">
+                [Placeholder Challenge] Bad Boy Pizza needed a bold visual identity that matched their attitude. We designed an unapologetic brand system combining aggressive type with loud colors...
+            </p>
+        </div>
+        <div>
+            <h3 class="font-heading font-bold text-2xl sm:text-3xl mb-6 flex items-center gap-4">
+                <span class="w-10 h-[2px] bg-accent"></span> The Solution
+            </h3>
+            <p class="text-neutral-600 text-lg leading-relaxed">
+                [Placeholder Solution] We developed a modular design system centered around aggressive typography and high-contrast color palettes. By incorporating dynamic 3D motion graphics into their core brand assets, we created an identity that feels alive on screen.
+            </p>
+        </div>
+    </section>
+
+    <!-- Dynamic Asset Gallery -->
+    <section class="max-w-[1400px] mx-auto px-4 md:px-8 py-12 pb-32">
+        <!-- Big Stacked Assets -->
+        <div class="flex flex-col gap-6 md:gap-12 mb-12 md:mb-16">
+            <div class="rounded-3xl overflow-hidden interactive group shadow-xl border border-black/10 relative bg-white/90">
+                <img src="assets/Bajaj%20Finserv/7.png" class="w-full h-auto object-cover">
+            </div>
+            <div class="rounded-3xl overflow-hidden interactive group shadow-xl border border-black/10 relative bg-white/90">
+                <img src="assets/Bajaj%20Finserv/8.png" class="w-full h-auto object-cover">
+            </div>
+            <div class="rounded-3xl overflow-hidden interactive group shadow-xl border border-black/10 relative bg-white/90">
+                <img src="assets/Bajaj%20Finserv/10.png" class="w-full h-auto object-cover">
+            </div>
+            <div class="rounded-3xl overflow-hidden interactive group shadow-xl border border-black/10 relative bg-white/90">
+                <img src="assets/Bajaj%20Finserv/11.png" class="w-full h-auto object-cover">
+            </div>
+        </div>
+    </section>
+
+    <!-- Next Project Footer -->
+    <section class="border-t border-black/10 bg-white bg-noise">
+        <a href="#" class="block w-full py-20 sm:py-32 md:py-48 text-center interactive group relative overflow-hidden">
+            <!-- Next Project Image Reveal -->
+            <div class="absolute inset-0 translate-y-full group-hover:translate-y-0 transition-transform duration-700 ease-[cubic-bezier(0.76,0,0.24,1)] z-0">
+                <img src="https://images.unsplash.com/photo-1616440347437-b1c73416efc2?q=80&w=2000&auto=format&fit=crop" alt="Tech Review Series" class="w-full h-full object-cover scale-110 group-hover:scale-100 transition-transform duration-1000 delay-100">
+                <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+            </div>
+            
+            <h4 class="text-sm font-bold uppercase tracking-[0.3em] text-neutral-400 group-hover:text-white/80 transition-colors duration-500 mb-6 relative z-10">Next Project</h4>
+            <h2 class="font-heading font-bold text-4xl sm:text-5xl md:text-8xl tracking-tighter text-black group-hover:text-white transition-colors duration-500 relative z-10 flex items-center justify-center gap-6">
+                Tech Review Series
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-0 -translate-x-10 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-700 delay-100"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </h2>
+        </a>
+    </section>
+
+    <!-- Simple Footer for subpages -->
+    <footer class="bg-black text-white py-12 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <h2 class="font-heading font-bold text-2xl sm:text-3xl">YASH YADAV.</h2>
+            <div class="flex gap-6">
+                <a href="https://instagram.com" target="_blank" class="text-sm font-medium hover:text-accent transition-colors interactive">Instagram</a>
+                <a href="https://behance.net" target="_blank" class="text-sm font-medium hover:text-accent transition-colors interactive">Behance</a>
+                <a href="mailto:hello@yashyadav.com" class="text-sm font-medium hover:text-accent transition-colors interactive">Email</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Main JS File -->
+    <script src="script.js"></script>
+</body>
+</html>

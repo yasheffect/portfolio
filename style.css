@@ -1,0 +1,207 @@
+/* Custom Cursor Styles */
+@media (pointer: fine) {
+    *, *::before, *::after {
+        cursor: none !important;
+    }
+}
+
+.custom-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    pointer-events: none;
+    will-change: transform;
+    mix-blend-mode: difference;
+}
+
+.cursor-trail-dot {
+    position: fixed;
+    top: -6px;
+    left: -6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #ff4d00;
+    pointer-events: none;
+    z-index: 100000;
+    will-change: transform;
+}
+
+.cursor-icon {
+    transition: transform 0.15s cubic-bezier(0.25, 1, 0.5, 1), fill 0.2s ease-out;
+    transform-origin: 0 0;
+    filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.2));
+}
+
+/* Hover States for Cursor */
+.cursor-hover .cursor-icon {
+    transform: scale(1.4) rotate(-5deg);
+    fill: #ff4d00;
+}
+
+/* Click States for Cursor */
+.cursor-click .cursor-icon {
+    transform: scale(0.85);
+}
+
+/* Blob Text Effect */
+.blob-container {
+    filter: url('#goo');
+}
+
+.blob-text {
+    /* Using CSS mix-blend-mode or text shadow to enhance the blob feel */
+    text-shadow: 0px 0px 1px rgba(0,0,0,0.5);
+}
+
+/* Animated Badge Glow */
+.badge-glow {
+    position: relative;
+    z-index: 1; /* Create stacking context so ::after stays behind the background */
+}
+
+/* Background Noise Texture */
+.bg-noise {
+    position: relative;
+}
+.bg-noise::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0; /* Behind content */
+}
+
+/* Architectural Blueprint Grid Texture */
+.bg-grid-blueprint {
+    background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+    background-image: 
+        linear-gradient(to right, rgba(0, 0, 0, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.06) 1px, transparent 1px),
+        linear-gradient(to right, rgba(0, 0, 0, 0.02) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+    background-position: center top;
+}
+
+/* Sharp Inner Animated Border */
+.badge-glow::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1.5px; /* Slightly thicker for that rich neon tube feel */
+    background: linear-gradient(
+        90deg, 
+        transparent 0%, 
+        transparent 30%, 
+        rgba(255, 77, 0, 0.8) 45%, 
+        rgba(255, 150, 0, 1) 50%, 
+        rgba(255, 77, 0, 0.8) 55%, 
+        transparent 70%, 
+        transparent 100%
+    );
+    background-size: 300% 100%;
+    animation: sweep-glow 10s linear infinite;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+/* Diffused Outer Glow */
+.badge-glow::after {
+    content: "";
+    position: absolute;
+    inset: 0; 
+    border-radius: inherit;
+    background: linear-gradient(
+        90deg, 
+        transparent 0%, 
+        transparent 30%, 
+        rgba(255, 77, 0, 0.6) 45%, 
+        rgba(255, 77, 0, 1) 50%, 
+        rgba(255, 77, 0, 0.6) 55%, 
+        transparent 70%, 
+        transparent 100%
+    );
+    background-size: 300% 100%;
+    animation: sweep-glow 10s linear infinite;
+    filter: blur(14px); /* Perfect, infinitely soft bloom */
+    z-index: -1; /* Placed behind the opaque badge background so it perfectly eclipses the light */
+    pointer-events: none;
+}
+
+/* Edge-only Animated Border */
+.badge-glow-edge {
+    position: relative;
+    z-index: 1;
+}
+.badge-glow-edge::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: linear-gradient(
+        90deg, 
+        transparent 0%, 
+        transparent 30%, 
+        rgba(255, 77, 0, 0.8) 45%, 
+        rgba(255, 150, 0, 1) 50%, 
+        rgba(255, 77, 0, 0.8) 55%, 
+        transparent 70%, 
+        transparent 100%
+    );
+    background-size: 300% 100%;
+    animation: sweep-glow 10s linear infinite;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+}
+
+
+@keyframes sweep-glow {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Hide scrollbar for cleaner look */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #fafafa;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #e5e5e5;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #d4d4d4;
+}
+
+/* Marquee Animation */
+@keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
+}
+.animate-marquee {
+    animation: marquee 20s linear infinite;
+    flex-shrink: 0;
+}
+
+
+/* Hide scrollbar for horizontal scroll areas */
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
