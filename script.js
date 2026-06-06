@@ -485,6 +485,63 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
         }
+
+        // Mobile interaction logic
+        const mobileTitles = document.querySelectorAll('.service-title-mobile');
+        mobileTitles.forEach(title => {
+            gsap.fromTo(title, 
+                { opacity: 0, y: 20 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: title.closest('.service-item'),
+                        start: "top 85%",
+                    }
+                }
+            );
+        });
+
+        const expandBtns = document.querySelectorAll('.expand-btn');
+        expandBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const li = btn.closest('.service-item');
+                const wrapper = li.querySelector('.mobile-img-wrapper');
+                const icon = btn.querySelector('.chevron-icon');
+                
+                const isExpanded = li.classList.contains('expanded');
+                
+                if (isExpanded) {
+                    li.classList.remove('expanded');
+                    wrapper.style.maxHeight = '0px';
+                    wrapper.style.opacity = '0';
+                    icon.style.transform = 'rotate(0deg)';
+                } else {
+                    // Close others (accordion style)
+                    document.querySelectorAll('.service-item.expanded').forEach(otherLi => {
+                        otherLi.classList.remove('expanded');
+                        const otherWrapper = otherLi.querySelector('.mobile-img-wrapper');
+                        const otherIcon = otherLi.querySelector('.chevron-icon');
+                        if (otherWrapper) {
+                            otherWrapper.style.maxHeight = '0px';
+                            otherWrapper.style.opacity = '0';
+                        }
+                        if (otherIcon) {
+                            otherIcon.style.transform = 'rotate(0deg)';
+                        }
+                    });
+
+                    li.classList.add('expanded');
+                    wrapper.style.maxHeight = wrapper.scrollHeight + 40 + 'px'; // +40 for padding safety
+                    wrapper.style.opacity = '1';
+                    icon.style.transform = 'rotate(180deg)';
+                }
+            });
+        });
     }
 
     // Works Section
